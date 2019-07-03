@@ -1,0 +1,47 @@
+<!--Navbar-->
+  <mdb-navbar SideClass="navbar navbar-expand-md navbar-dark pink darken-2">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand>
+      <a class="navbar-brand font-weight-bold" href="#">
+        <!--<img src="assets/ico/logo.png" height="80" class="d-inline-block -align-justify" alt="">-->
+        <b>Naturehike</b> Puma
+      </a></mdb-navbar-brand>
+
+    <!-- Collapsible content -->
+    <links>
+      <!-- Links -->
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link waves-light" mdbWavesEffect>Главная<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            Категории<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Палатка</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Карабины</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Рюкзаки</a>
+            <div class="divider dropdown-divider"></div>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">...</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect>Товары</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect>Контакты</a>
+        </li>
+      </ul>
+      <!-- Links -->
+
+      <!-- Search form -->
+      <form class="form-inline waves-light" mdbWavesEffect>
+        <div class="md-form my-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Найти...">
+        </div>
+      </form>
+    </links>
+    <!-- Collapsible content -->
+  </mdb-navbar>
+  <!--/.Navbar-->

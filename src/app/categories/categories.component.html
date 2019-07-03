@@ -1,0 +1,61 @@
+<div class="card-deck flex-center" style="display: block;">
+  <div *ngFor="let elRow of section1CategoriesRows; let row = index">
+
+    <!--Other row-->
+    <ng-template #otherRow>
+      <div class="row mx-5">
+        <div class="card align-center p-0 my-2 col-md-4" *ngFor="let el of elRow">
+          <ng-container
+            *ngTemplateOutlet="card_inside;
+                context: {width_class: 'card-screen-2', photo_url: el.photo_url, alt: el.alt, title: el.title, text:el.text, href: el.href}">
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+
+    <!--Last row-->
+    <ng-template #lastRow>
+      <div [ngSwitch]="lastRowEls">
+        <ng-template ngSwitchCase="1">
+          <div class="row mx-5">
+            <div class="card align-center p-0 my-2" *ngFor="let el of elRow">
+              <ng-container
+                *ngTemplateOutlet="card_inside;
+                context: {width_class: 'card-screen-1', photo_url: el.photo_url, alt: el.alt, title: el.title, text:el.text, href: el.href}">
+              </ng-container>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template ngSwitchCase="2">
+          <div class="row mx-5">
+            <div class="card col-lg-6 align-center p-0 my-2" *ngFor="let el of elRow">
+              <ng-container
+                *ngTemplateOutlet="card_inside;
+                context: {width_class: 'card-screen-1', photo_url: el.photo_url, alt: el.alt, title: el.title, text:el.text, href: el.href}">
+              </ng-container>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </ng-template>
+
+    <div *ngIf="row < rowCount; then otherRow else lastRow"></div>
+  </div>
+</div>
+
+<ng-template #card_inside let-width_class="width_class" let-photo_url="photo_url" let-alt="alt" let-title="title" let-text="text" let-href="href">
+  <a href="{{href}}">
+    <div class="card-img-container">
+      <img class="card-img-top" [ngClass]="[width_class, 'card-img-top']" src="{{photo_url}}" alt="{{alt}}">
+      <div class="card-img-overlay">
+        <div class="card-body text-center px-3">
+          <h3 class="card-title py-2 text-white">{{title}}</h3>
+          <p class="card-text text-white">{{text}}</p>
+        </div>
+      </div>
+    </div>
+  </a>
+</ng-template>
+
+

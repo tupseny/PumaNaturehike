@@ -10,6 +10,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {MainComponent} from './main/main.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryCardComponent } from './category-card/category-card.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoryCardComponent } from './category-card/category-card.component';
     BrowserModule,
     SlideshowModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
