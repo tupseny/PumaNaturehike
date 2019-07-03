@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Category} from '../_models/category';
+import {Category} from '../_models/category.model';
 import {isUndefined} from 'util';
 
 @Component({

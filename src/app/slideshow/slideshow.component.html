@@ -1,14 +1,18 @@
-<!--<slideshow-->
-<!--  [minHeight]="height"-->
-<!--  [autoPlay]="true"-->
-<!--  [showArrows]="showArrows"-->
-<!--  [imageUrls]="imageSources"-->
-<!--  [lazyLoad]="imageSources?.length > 1"-->
-<!--  [autoPlayWaitForLazyLoad]="true">-->
-<!--</slideshow>-->
-
-<ngb-carousel *ngIf="imageSources.length != 0">
-  <ng-template ngbSlide>
-    <img [src]="imageSources">
+<ngb-carousel *ngIf="slides.length != 0">
+  <ng-template ngFor let-slide [ngForOf]="slides">
+    <ng-template ngbSlide>
+      <ng-container
+        [ngTemplateOutlet]="slideTmpl"
+        [ngTemplateOutletContext]="{src: slide.image.url, alt: slide.alt, caption: slide.caption, text: slide.text}">
+      </ng-container>
+    </ng-template>
   </ng-template>
 </ngb-carousel>
+
+<ng-template #slideTmpl ngbSlide let-src="src" let-alt="alt" let-text="text" let-caption="caption">
+  <img [src]="src" [alt]="alt">
+  <div class="carousel-caption">
+    <h3>{{caption}}</h3>
+    <p>{{text}}</p>
+  </div>
+</ng-template>

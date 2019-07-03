@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SlideshowImage} from '../_models/slideshow-image';
-import {IImage} from 'ng-simple-slideshow';
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-slideshow',
@@ -8,23 +8,50 @@ import {IImage} from 'ng-simple-slideshow';
   styleUrls: ['./slideshow.component.css']
 })
 export class SlideshowComponent implements OnInit {
-  showArrows: boolean;
-  imageSources: (String | IImage)[];
-  height: any;
+  slides: Slide[];
 
-  constructor() {
+  constructor(config: NgbCarouselConfig) {
+    config.interval = 5000;
+    config.keyboard = true;
+    config.pauseOnHover = false;
+    config.showNavigationArrows = true;
+    config.showNavigationIndicators = true;
+    config.wrap = true;
   }
 
   ngOnInit() {
-    this.height = '600px';
+    this.initSlides();
+  }
 
-    this.showArrows = true;
+  private initSlides() {
+    const s1: Slide = {
+      image: new SlideshowImage('assets/images/people-2561455-1920-1920x1280.jpg'),
+      alt: 'slide 1',
+      caption: 'Люди',
+      text: 'тут изображены люди'
+    };
+    const s2: Slide = {
+      image: new SlideshowImage('assets/images/tent-1208201-1920-1920x1280.jpg'),
+      alt: 'второй слайд',
+      caption: 'Палатки',
+      text: 'тут изображены палатки'
+    };
+    const s3: Slide = {
+      image: new SlideshowImage('assets/images/green-1072828-2000x1125.jpg'),
+      alt: 'третий слайд',
+      caption: 'Зелень',
+      text: 'тут изображена зелень'
+    };
 
-    const ex1: SlideshowImage = new SlideshowImage('assets/images/people-2561455-1920-1920x1280.jpg');
-    const ex2: SlideshowImage = new SlideshowImage('assets/images/tent-1208201-1920-1920x1280.jpg');
-    const ex3: SlideshowImage = new SlideshowImage('assets/images/green-1072828-2000x1125.jpg');
-    this.imageSources = [ex1, ex2, ex3];
+    this.slides = [s1, s2, s3];
   }
 
 
+}
+
+export interface Slide {
+  image: SlideshowImage;
+  alt: string;
+  caption: string;
+  text: string;
 }

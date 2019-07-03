@@ -27,6 +27,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
     NgbModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
