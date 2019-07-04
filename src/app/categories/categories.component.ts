@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../_models/category.model';
-import {isUndefined} from 'util';
+import {CategoryQuery, CategoryService} from '../_models/category';
+import {Observable} from 'rxjs';
+import {HashMap} from '@datorama/akita';
 
 @Component({
   selector: 'app-categories',
@@ -8,13 +10,13 @@ import {isUndefined} from 'util';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
+  categories$: Observable<Category[]>;
+
   section1Title: String;
   section1Text: String;
-  section1Categories: Category[];
   section1CategoriesRows: Category[][];
 
   private readonly MAX_COLS = 12;
-  private readonly CATEGORY_HEIGTH = '200px';
 
   private _rowCount = 0;
   private _elInRow = 3;
@@ -22,60 +24,63 @@ export class CategoriesComponent implements OnInit {
   private _colsForEls = this.MAX_COLS;
   private _colsForLastEl = this.MAX_COLS;
 
-  constructor() {
+  constructor(private categoryService: CategoryService,
+              private categoryQuery: CategoryQuery) {
   }
 
   ngOnInit() {
     this.section1Title = 'Категории товаров';
     this.section1Text = 'Naturehike является брендом профессиональной продукции для использования на открытом воздухе и не только.' +
       ' Компания предлагает легкую, высококачественную экипировку...';
-
-    this.section1Categories = [
-      new Category('assets/img/cat_tent.jpg', 'Палатки', '#', 'Down Sleeping Bags, Cotton Sleeping Bags, Sleeping Bag Inner'),
-      new Category('assets/img/cat_tent.jpg', '2', '#', 'asdkjasd aksjdnajksd askdjn'),
-      new Category('assets/img/cat_tent.jpg', '3', '#', 'asdkjasd aksjdnajksd askdjn'),
-      new Category('assets/img/cat_tent.jpg', '4', '#', 'asdkjasd aksjdnajksd askdjn'),
-      new Category('assets/img/cat_tent.jpg', '5', '#', 'asdkjasd aksjdnajksd askdjn'),
-      new Category('assets/img/cat_tent.jpg', '5', '#', 'asdkjasd aksjdnajksd askdjn'),
-      new Category('assets/img/cat_tent.jpg', '5', '#', 'asdkjasd aksjdnajksd askdjn'),
-    ];
-
-    this.calcMeta();
-    this.splitIntoRows();
+    this.categories$ = this.categoryQuery.selectAll();
+    this.categories$.subscribe(elms => {
+      if (elms.length === 0) {
+        console.log('--> Empty categories <--');
+      } else {
+        console.log('--> Got new elements <--');
+        console.log(elms);
+        this.calcMeta(elms.length);
+        this.splitIntoRows(elms);
+      }
+    });
+    this.getCategories();
   }
 
-  splitIntoRows() {
+  getCategories() {
+    this.categoryService.getCategories();
+  }
+
+  splitIntoRows(elms: Category[]) {
     this.section1CategoriesRows = [];
 
     let row = 0;
     let col = 0;
     this.section1CategoriesRows[row] = [];
-    for (let i = 0; i < this.section1Categories.length; i++) {
+    for (let i = 0; i < elms.length; i++) {
       if (col === 2) {
         row++;
         this.section1CategoriesRows[row] = [];
       }
 
       col = i % 3;
-      this.section1CategoriesRows[row][col] = this.section1Categories[i];
+      this.section1CategoriesRows[row][col] = elms[i];
     }
 
     console.log(this.section1CategoriesRows);
   }
 
-  calcMeta() {
+  calcMeta(count: number) {
     if (
-      isUndefined(this.section1Categories) ||
-      this.section1Categories.length === 0 ||
+      count === 0 ||
       this.elInRow === 0
     ) {
       return;
     }
 
-    this._rowCount = Number((this.section1Categories.length / this._elInRow).toFixed(1).split('.')[0]);
+    this._rowCount = Number((count / this._elInRow).toFixed(1).split('.')[0]);
     this._colsForEls = this.MAX_COLS / this._elInRow;
 
-    const reminded = this.section1Categories.length % this._elInRow;
+    const reminded = count % this._elInRow;
     if (reminded === 0) {
       this._lastRowEls = this._elInRow;
       this._colsForLastEl = this._colsForEls;
@@ -90,7 +95,6 @@ export class CategoriesComponent implements OnInit {
     console.log('colsForEls: ' + this.colsForEls);
     console.log('colsForLastEl: ' + this.colsForLastEl);
   }
-
 
   get rowCount(): number {
     return this._rowCount;

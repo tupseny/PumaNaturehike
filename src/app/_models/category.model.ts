@@ -11,9 +11,9 @@ export interface Category {
 
 export function createCategory({id, title, href, photo_alt, photo_url, text}: Partial<Category>) {
   return {
-    id,
+    id: id === undefined ? Math.random() : id,
     title,
-    href,
+    href: href === undefined ? '#' : href,
     text,
     photo_url,
     photo_alt

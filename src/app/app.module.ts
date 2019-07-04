@@ -11,6 +11,7 @@ import {MainComponent} from './main/main.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryCardComponent } from './category-card/category-card.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {Backend} from './backend/temp.backend';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
 
   ],
-  providers: [],
+  providers: [Backend],
   bootstrap: [AppComponent]
 })
 export class AppModule {

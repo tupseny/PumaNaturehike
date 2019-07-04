@@ -7,7 +7,7 @@
         <div class="card align-center p-0 my-2 col-md-4" *ngFor="let el of elRow">
           <ng-container
             *ngTemplateOutlet="card_inside;
-                context: {width_class: 'card-screen-2', photo_url: el.photo_url, alt: el.alt, title: el.title, text:el.text, href: el.href}">
+                context: {width_class: 'card-screen-2', photo_url: el.photo_url, alt: el.photo_alt, title: el.title, text:el.text, href: el.href}">
           </ng-container>
         </div>
       </div>
@@ -21,7 +21,7 @@
             <div class="card align-center p-0 my-2" *ngFor="let el of elRow">
               <ng-container
                 *ngTemplateOutlet="card_inside;
-                context: {width_class: 'card-screen-1', photo_url: el.photo_url, alt: el.alt, title: el.title, text:el.text, href: el.href}">
+                context: {width_class: 'card-screen-1', photo_url: el.photo_url, alt: el.photo_alt, title: el.title, text:el.text, href: el.href}">
               </ng-container>
             </div>
           </div>
@@ -32,7 +32,7 @@
             <div class="card col-lg-6 align-center p-0 my-2" *ngFor="let el of elRow">
               <ng-container
                 *ngTemplateOutlet="card_inside;
-                context: {width_class: 'card-screen-1', photo_url: el.photo_url, alt: el.alt, title: el.title, text:el.text, href: el.href}">
+                context: {width_class: 'card-screen-1', photo_url: el.photo_url, alt: el.photo_alt, title: el.title, text:el.text, href: el.href}">
               </ng-container>
             </div>
           </div>
